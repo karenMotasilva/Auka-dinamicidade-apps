@@ -1,41 +1,33 @@
-
 import { StyleSheet, Text, View, TextInput, ViewStyle, ImageStyle, Button, } from 'react-native';
 import { useState } from 'react'
+import { Contador } from './componentes/contador';
+import { ButtonEspecial } from './componentes/buttonEspecial';
+import { ButtonWhat } from './componentes/buttonWhat';
+import { Switch } from 'react-native';
 
 
 export default function App() {
-
-  const [texto, setTexto] = useState('')
-
-  let numero: number = 0
-  const [numeroReativo, setNumeroReativo] = useState(1)
-
+  const [toggle, setToogle] = useState(false)
   return (
     <View style={styles.container}>
-      <TextInput placeholder='Insira um texto'
-        style={styles.inputStyle}
-        onChangeText={(text) => {
-          setTexto(text)
-        }
-        } />
-      <Text>Texto : {texto}</Text>
-      <View style={{ flexDirection: 'row', marginTop: 20 }}>
-        <Button title='+' onPress={() => {
-          numero++;
-          setNumeroReativo(numeroReativo + 1)
-        }} />
-        <Text style={{ fontSize: 35, paddingHorizontal: 20 }}>
-          {numero}
-        </Text>
-        <Button title='-' onPress={() => {
-          numero--
-          setNumeroReativo(numeroReativo - 1)
-        }} />
-      </View>
-      <Text style={{ fontSize: 35, paddingHorizontal: 20 }}>
-        {numeroReativo}</Text>
+
+      {toggle ? <ButtonWhat /> : <ButtonEspecial />}
+      {/* <Button title='Trocar' onPress={() => setToogle(!toggle)} /> */}
+      <Switch
+        trackColor={{ false: '#767577', true: '#81b0ff' }}
+        thumbColor={toggle ? '#F5DD4B' : '#F4F3F4'}
+        ios_backgroundColor='#3E3E3E'
+        onValueChange={() => setToogle(!toggle)}
+        value={toggle} />
+
+
+      <ButtonEspecial />
+      <Contador inicio={0} />
+      <Contador inicio={0} />
+      <Contador inicio={0} />
     </View>
-  );
+
+  )
 }
 
 const styles = StyleSheet.create({
